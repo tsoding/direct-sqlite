@@ -3130,6 +3130,11 @@ SQLITE_API int sqlite3_trace_v2(
   void *pCtx
 );
 
+/* CAPI3REF: Check equivalence of SQLite queries based on tokens
+**/
+SQLITE_API int sqlite3_queries_identical(const unsigned char *a,
+                                         const unsigned char *b);
+
 /*
 ** CAPI3REF: Query Progress Callbacks
 ** METHOD: sqlite3

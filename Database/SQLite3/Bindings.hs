@@ -2,6 +2,8 @@
 module Database.SQLite3.Bindings (
     module Database.SQLite3.Bindings.Types,
 
+    c_sqlite3_queries_identical,
+
     -- * Connection management
     c_sqlite3_open,
     c_sqlite3_close,
@@ -131,6 +133,9 @@ import Database.SQLite3.Bindings.Types
 
 import Foreign
 import Foreign.C
+
+foreign import ccall "sqlite3_queries_identical"
+    c_sqlite3_queries_identical :: CString -> CString -> IO CInt
 
 -- | <https://www.sqlite.org/c3ref/open.html>
 --

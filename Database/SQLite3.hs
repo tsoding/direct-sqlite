@@ -3,6 +3,8 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE OverloadedStrings #-}
 module Database.SQLite3 (
+    queriesIdentical,
+
     -- * Connection management
     open,
     close,
@@ -283,6 +285,9 @@ checkErrorMsg fn result = case result of
 
 appendShow :: Show a => Text -> a -> Text
 appendShow txt a = txt `T.append` (T.pack . show) a
+
+queriesIdentical :: Text -> Text -> IO Bool
+queriesIdentical a b = Direct.queriesIdentical (toUtf8 a) (toUtf8 b)
 
 -- | <https://www.sqlite.org/c3ref/open.html>
 open :: Text -> IO Database

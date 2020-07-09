@@ -10,6 +10,7 @@
 --  * It only uses cheap conversions.  None of these bindings convert from
 --    'String' or 'T.Text'.
 module Database.SQLite3.Direct (
+    queriesIdentical,
     -- * Connection management
     open,
     close,
@@ -250,6 +251,13 @@ data Backup = Backup Database (Ptr CBackup)
     deriving (Eq, Show)
 -- we include the destination db handle to use in error messages since
 -- it cannot be retrieved any other way
+
+queriesIdentical :: Utf8 -> Utf8 -> IO Bool
+queriesIdentical (Utf8 utfA) (Utf8 utfB) =
+    BS.useAsCString utfA $ \a ->
+      BS.useAsCString utfB $ \b -> do
+        result <- c_sqlite3_queries_identical a b
+        return $ result /= 0
 
 ------------------------------------------------------------------------
 
